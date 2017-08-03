@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import ReactMarkdown from 'react-markdown';
-
-function LinkRenderer(props) {
-  return <a href={props.href} target="_blank">{props.children}</a>
-}
+import emoji from '../../utils/emoji_convertor';
+import md from '../../utils/link_attr_blank';
 
 class Message extends Component {
   render(){
     let { message, username } = this.props;
     let fromMe = message.from === username;
     let messageClass = fromMe ? 'chat-outgoing' : 'chat-incoming';
-    
+    let spaced = message.msg.replace(/:(\w+):/g, ':$1: ');
+    let emojified = emoji.replace_colons(spaced);
+    let linked = md.renderInline(emojified);
     return (
       <li className={'chat-message ' + messageClass} key={message.key}>
         <span className="username">{message.from}</span>
-        <ReactMarkdown
-          source={message.msg}
-          renderers={{Link: LinkRenderer}}
-          escapeHtml={true} />
+          <div dangerouslySetInnerHTML={{__html: linked}}>
+          </div>
       </li>
     );
   }
