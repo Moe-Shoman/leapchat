@@ -16,7 +16,7 @@ class MessageForm extends Component {
 
     this.state = {
       message: '',
-      emojiPicker: false
+      showEmojiPicker: false
     }
   }
 
@@ -75,12 +75,12 @@ class MessageForm extends Component {
   }
   togglePicker = () => {
     this.setState((prevState) => {
-      return {emojiPicker: !prevState.emojiPicker}
+      return {showEmojiPicker: !prevState.showEmojiPicker}
     })
   }
   closePicker = () => {
     this.setState({
-      emojiPicker: false
+      showEmojiPicker: false
     })
   }
   addEmoji = (emoji) => {
@@ -89,16 +89,28 @@ class MessageForm extends Component {
     })
   }
   render() {
-    let { message, emojiPicker } = this.state;
+    let { message, showEmojiPicker } = this.state;
 
     return (
       <div className="message-form">
         <form role="form" className="form" onSubmit={this.onSendMessage}>
-          {emojiPicker && <Picker emojiSize={24} perLine={9} skin={1} set={'apple'} autoFocus={false} include={[]} exclude={['nature', 'places', 'flags']} emoji={""} title={"LeapChat"} onClick={(emoji, event) => {this.addEmoji(emoji); this.closePicker()}}/>}
+          {showEmojiPicker && <Picker 
+             emojiSize={24}
+             perLine={9}
+             skin={1}
+             set={'apple'}
+             autoFocus={false}
+             include={[]}
+             exclude={['nature', 'places', 'flags']}
+             emoji={""}
+            title={"LeapChat"}
+            onClick={(emoji, event) => {this.addEmoji(emoji); this.closePicker()}}/>}
           <div>
 
             <div className="chat-icons">
-              <FaSmileO size={24} className="emoji-picker-icon" onClick={this.togglePicker}/>
+              <FaSmileO size={24}
+                className="emoji-picker-icon"
+                onClick={this.togglePicker}/>
             </div>
             <div className="message">
               <textarea

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { EmojiConvertor } from 'emoji-js';
-
-const emoji = new EmojiConvertor();
-
-function LinkRenderer(props) {
-  return <a href={props.href} target="_blank">{props.children}</a>
-}
+import emoji from '../../utils/emoji_convertor';
+import md from '../../utils/link_attr_blank';
 
 class Message extends Component {
   render(){
@@ -15,14 +10,12 @@ class Message extends Component {
     let messageClass = fromMe ? 'chat-outgoing' : 'chat-incoming';
     let spaced = message.msg.replace(/:(\w+):/g, ':$1: ');
     let emojified = emoji.replace_colons(spaced);
-
+    let linked = md.renderInline(emojified);
     return (
       <li className={messageClass} key={message.key}>
         <span className="username">{message.from}</span>
-        <ReactMarkdown
-          source={emojified}
-          renderers={{Link: LinkRenderer}}
-          escapeHtml={true} />
+          <div dangerouslySetInnerHTML={{__html: linked}}>
+          </div>
       </li>
     );
   }
