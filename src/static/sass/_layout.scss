@@ -224,6 +224,14 @@ main {
             list-style-type: disc;
             margin-left: 20px;
           }
+
+          img[src^='/static/img/emoji'] {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background-size: 100%;
+            vertical-align: bottom;
+          }
         }
       }
     }
