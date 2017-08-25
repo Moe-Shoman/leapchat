@@ -43,7 +43,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([outputFolder]),
     new HtmlWebpackPlugin({
-      title: 'Leapchat',
+      title: 'LeapChat',
       template: './src/index-template.ejs'
     }),
     new ExtractTextPlugin({
