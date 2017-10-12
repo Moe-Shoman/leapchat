@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import MessageList from './MessageList';
 import Throbber from '../general/Throbber';
-
+import { connect } from 'react-redux';
+import { closePicker } from '../../actions/chatActions';
 import { playNotification } from '../../utils/audio';
 
 class MessageBox extends Component {
@@ -77,10 +78,10 @@ class MessageBox extends Component {
   }
 
   render(){
-    let { messages, username } = this.props;
+    let { messages, username, closePicker } = this.props;
 
     return (
-      <div className="message-box">
+      <div className="message-box" onClick={closePicker}>
         <div className="message-list">
           <MessageList messages={messages} username={username} />
         </div>
@@ -92,4 +93,4 @@ class MessageBox extends Component {
   }
 }
 
-export default MessageBox;
+export default connect(null, { closePicker })(MessageBox);
